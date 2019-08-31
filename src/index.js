@@ -21,19 +21,7 @@ const link = new HttpLink({ uri: 'https://countries.trevorblades.com/' });
 const client = new ApolloClient({ 
   cache, 
   link,
-  resolvers: {
-    Query: {
-      cont: () => ({__typename: "Cont", code: "AS"})
-    },
-    Mutation: {}
-  },
-  typeDefs: `
-    type Query {
-      cont: {
-        code: String
-      }
-    }
-  `
+  resolvers: {},
 });
 
 ReactDOM.render(

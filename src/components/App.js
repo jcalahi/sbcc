@@ -1,25 +1,27 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { useQuery, useMutation } from '@apollo/react-hooks';
+import { useQuery, useApolloClient } from '@apollo/react-hooks';
 import { fetchContinents } from '../queries/fetchContinents';
 // components
 import Container from '../components/common/Container';
 
-const Continent = (props) => {
+const Continent = ({ onContinentClick, continent }) => {
   return (
-    <div>{props.continent.name}</div>
+    <div onClick={() => onContinentClick(continent.code)}>{continent.name}</div>
   );
 }
 
-const Continents = () => {
-  const { data, loading } = useQuery(fetchContinents);
-
+const Continents = (props) => {
+  const { data: { continents }, loading } = useQuery(fetchContinents);
+  const client = useApolloClient();
+  
   if (loading) {
     return <Container>Loading Continents...</Container>;
   }
 
-  const handleClick = (code) => (/* event */) => {
-    console.log(code)
+  const handleClick = (code) => {
+    client.writeData({ data: { selectedContinent: code }});
+    props.history.push('/countries/');
   }
 
   const renderContinents = (continents) => {    
@@ -31,7 +33,7 @@ const Continents = () => {
   return (
     <Container>
       <h1>List of Continents</h1>
-      {renderContinents(data.continents)}
+      {renderContinents(continents)}
     </Container>
   );
 }
