@@ -1,1 +1,0 @@
-# scoutbase-code-challenge

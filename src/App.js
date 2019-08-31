@@ -1,26 +1,37 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import gql from "graphql-tag";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+	renderContinents(continents) {
+		return continents.map((continent, idx) => <li key={idx} onClick={() => console.log(continent)}>{continent.name}</li>);
+	}
+
+	render() {
+		const { loading } = this.props.data;
+		if (loading) {
+			return <div>Loading...</div>
+		}
+		return (
+			<div>
+				<h3>List of Continents</h3>
+				{this.renderContinents(this.props.data.continents)}
+			</div>
+		);
+	}
 }
 
-export default App;
+const query = gql`
+	{
+		continents {
+			name
+			countries {
+				name
+				phone
+			}
+		}
+	}
+`;
+
+export default graphql(query)(App);
