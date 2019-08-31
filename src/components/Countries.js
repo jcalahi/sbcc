@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { fetchCountries } from '../queries/fetchCountries';
 import { useQuery } from '@apollo/react-hooks';
+import { fetchCountries } from '../queries/fetchCountries';
 // components
 import Container from './common/Container';
 
@@ -10,14 +10,14 @@ const Countries = (props) => {
     variables: { code: "AN" }
   });
 
+  if (loading) {
+    return <Container>Loading...</Container>;
+  }
+
   const renderCountries = (countries) => {
     return countries.map((country, idx) => {
       return <div key={idx} onClick={() => props.history.push(`/countries/${country.code}`)}>{country.name}</div>
     });
-  }
-
-  if (loading) {
-    return <Container>Loading...</Container>;
   }
 
   return (

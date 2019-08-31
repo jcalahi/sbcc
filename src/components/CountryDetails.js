@@ -1,27 +1,25 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { graphql } from 'react-apollo';
+import { useQuery } from '@apollo/react-hooks';
 import { fetchCountryDetails } from '../queries/fetchCountryDetails';
 // components
 import Container from './common/Container';
 
-class CountryDetails extends Component {
-  render() {
-    const { country, loading } = this.props.data;
-    if (loading) return <Container>Loading...</Container>;
+const CountryDetails = (props) => {
+  const { data, loading } = useQuery(fetchCountryDetails, {
+    variables: { code: props.match.params.code.toUpperCase() }
+  });
 
-    return (
-      <Container>
-        <button type="button" onClick={() => this.props.history.goBack()}>Go Back</button>
-        <h1>Country Details</h1>
-        <p>Name: {country.name}</p>
-        <p>Native: {country.native}</p>
-      </Container>
-    );
-  }
-}
+  if (loading) return <Container>Loading Country Details...</Container>;
 
-const withGraphQL = graphql(fetchCountryDetails, {
-  options: (props) => { return { variables: { code: props.match.params.code.toUpperCase() } } }
-})(CountryDetails);
-export default withRouter(withGraphQL);
+  return (
+    <Container>
+      <button type="button" onClick={() => props.history.goBack()}>Go Back</button>
+      <h1>Country Details</h1>
+      <p>Name: {data.country.name}</p>
+      <p>Native: {data.country.native}</p>
+    </Container>
+  );
+};
+
+export default withRouter(CountryDetails);
