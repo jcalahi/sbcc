@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { graphql } from 'react-apollo';
-import { fetchContinents } from './queries/fetchContinents';
+import { fetchContinents } from '../queries/fetchContinents';
 // components
-import Container from './components/common/Container';
+import Container from '../components/common/Container';
 
 const Continent = (props) => {
   const { code, name } = props.continentInfo;

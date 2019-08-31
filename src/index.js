@@ -10,7 +10,7 @@ import { ApolloProvider } from 'react-apollo';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 // components
-import App from './App';
+import App from './components/App';
 import Countries from './components/Countries';
 import CountryDetails from './components/CountryDetails';
 
@@ -42,7 +42,6 @@ ReactDOM.render(
       <Route exact path="/" component={App} />
       <Route exact path="/countries" component={Countries} />
       <Route exact path="/countries/:code" component={CountryDetails} />
-
     </Router>
   </ApolloProvider>, 
   document.getElementById('root')
