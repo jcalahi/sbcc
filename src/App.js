@@ -1,37 +1,46 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import { graphql } from 'react-apollo';
-import gql from "graphql-tag";
+import { fetchContinents } from './queries/fetchContinents';
+// components
+import Container from './components/common/Container';
 
-class App extends Component {
+const Continent = (props) => {
+  const { code, name } = props.continentInfo;
+  const handleClick = (code) => (/* event */) => {
+    props.onContinentClick(code);
+  }
 
-	renderContinents(continents) {
-		return continents.map((continent, idx) => <li key={idx} onClick={() => console.log(continent)}>{continent.name}</li>);
-	}
-
-	render() {
-		const { loading } = this.props.data;
-		if (loading) {
-			return <div>Loading...</div>
-		}
-		return (
-			<div>
-				<h3>List of Continents</h3>
-				{this.renderContinents(this.props.data.continents)}
-			</div>
-		);
-	}
+  return (
+    <div onClick={handleClick(code)}>{name}</div>
+  );
 }
 
-const query = gql`
-	{
-		continents {
-			name
-			countries {
-				name
-				phone
-			}
-		}
-	}
-`;
+class Continents extends Component {
 
-export default graphql(query)(App);
+  handleContinentClick = (code) => {
+    this.props.history.push('/countries/');
+  }
+
+  renderContinents = (continents) => {    
+    return continents.map((continent, idx) => {
+      return <Continent key={idx} continentInfo={continent} onContinentClick={this.handleContinentClick} />;
+    });
+  }
+
+  render() {
+    const { continents, loading } = this.props.data;
+    if (loading) return <Container>Loading...</Container>;
+
+    return (
+      <Container>
+        <button type="button" onClick={() => this.props.history.goBack()}>Go Back</button>
+        <h1>List of Continents</h1>
+        {this.renderContinents(continents)}
+      </Container>
+    );
+  }
+}
+
+const withGraphQL = graphql(fetchContinents)(Continents);
+export default withRouter(withGraphQL);
