@@ -20,11 +20,7 @@ const Countries = (props) => {
 
   const renderLanguages = (languages) => {
     return languages.map((lang, idx) => {
-      return (
-        <li key={idx}>
-          <span>Name: {lang.name} / Native: {lang.native}</span>
-        </li>
-      );
+      return <li key={idx}>Name: {lang.name} / Native: {lang.native}</li>;
     });
   };
 
@@ -49,8 +45,7 @@ const Countries = (props) => {
       );
     });
   }
-
-  console.log(props);
+  
   return (
     <RootContainer>
       <h1>List of Countries</h1>

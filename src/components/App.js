@@ -7,7 +7,6 @@ import { Container, FlexGridContainer, RootContainer } from '../components/commo
 import { Card, CardTitle } from './common/Card';
 
 const Continent = ({ onContinentClick, continent }) => {
-  console.log(continent);
   return (
     <Card onClick={() => onContinentClick(continent.code)}>
       <CardTitle>{continent.name}</CardTitle>

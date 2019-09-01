@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 
 export const Card = styled.div`
-  min-width: 220px;
-  max-width: 220px;
   margin-bottom: 15px;
+  width: 230px;
 `;
 
 export const CardTitle = styled.div`
@@ -39,13 +38,16 @@ export const CardItem = styled.div`
 `;
 
 export const CardItemName = styled.div`
+  border-bottom: 1px solid #BDBDBD;
   color: #34495e;
   font-size: 1.17em;
   font-weight: bold;
-  padding: 0 10px;
+  margin-bottom: 10px;
+  padding: 5px 10px;
 `;
 export const CardItemDescription = styled.div`
   font-size: 12px;
-  padding: 10px;
+  margin-bottom: 10px;
+  padding: 0 10px;
 `;
 
