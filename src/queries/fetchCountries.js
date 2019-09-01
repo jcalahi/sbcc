@@ -9,6 +9,7 @@ export const fetchCountries = gql`
         native
         languages {
           name
+          native
         }
         continent {
           name

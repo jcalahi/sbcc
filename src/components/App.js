@@ -3,13 +3,17 @@ import { withRouter } from 'react-router-dom';
 import { useQuery, useApolloClient } from '@apollo/react-hooks';
 import { fetchContinents } from '../queries/fetchContinents';
 // components
-import Container from '../components/common/Container';
+import { Container, FlexGridContainer, RootContainer } from '../components/common/Container';
+import { Card, CardTitle } from './common/Card';
 
 const Continent = ({ onContinentClick, continent }) => {
+  console.log(continent);
   return (
-    <div onClick={() => onContinentClick(continent.code)}>{continent.name}</div>
+    <Card onClick={() => onContinentClick(continent.code)}>
+      <CardTitle>{continent.name}</CardTitle>
+    </Card>
   );
-}
+};
 
 const Continents = (props) => {
   const { data: { continents }, loading } = useQuery(fetchContinents);
@@ -31,10 +35,12 @@ const Continents = (props) => {
   }
 
   return (
-    <Container>
+    <RootContainer>
       <h1>List of Continents</h1>
-      {renderContinents(continents)}
-    </Container>
+      <FlexGridContainer>
+        {renderContinents(continents)}
+      </FlexGridContainer>
+    </RootContainer>
   );
 }
 
