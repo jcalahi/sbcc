@@ -7,6 +7,7 @@ import { fetchSelectedContinent } from '../queries/fetchSelectedContinent';
 import { Container, FlexGridContainer, RootContainer } from './common/Container';
 import { Card, CardItem, CardItemDescription, CardItemName } from './common/Card';
 import { StyledList } from './common/List';
+import { StyledLink } from './common/Link';
 
 const Countries = (props) => {
   const { data: {selectedContinent} } = useQuery(fetchSelectedContinent);
@@ -26,7 +27,6 @@ const Countries = (props) => {
 
   const renderCountries = (countries) => {
     return countries.map((country, idx) => {
-      console.log(country);
       return (
         <Card key={idx} onClick={() => props.history.push(`/countries/${country.code}`)}>
           <CardItem>
@@ -49,6 +49,9 @@ const Countries = (props) => {
   return (
     <RootContainer>
       <h1>List of Countries</h1>
+      <StyledLink>
+        <a href="/">Back to Continents</a>
+      </StyledLink>
       <FlexGridContainer>
         {renderCountries(data.continent.countries)}
       </FlexGridContainer>

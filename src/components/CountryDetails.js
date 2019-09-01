@@ -5,6 +5,7 @@ import { fetchCountryDetails } from '../queries/fetchCountryDetails';
 // components
 import { Container, RootContainer, FlexGridContainer } from './common/Container';
 import { Card, CardItem, CardItemDescription, CardItemName } from './common/Card';
+import { StyledLink } from './common/Link';
 
 const CountryDetails = (props) => {
   const { data, loading } = useQuery(fetchCountryDetails, {
@@ -14,8 +15,10 @@ const CountryDetails = (props) => {
   if (loading) return <Container>Loading Country Details...</Container>;
   return (
     <RootContainer>
-      {/* <button type="button" onClick={() => props.history.goBack()}>Go Back</button> */}
       <h1>Country Info</h1>
+      <StyledLink>
+        <a href="/countries/">Back to Countries</a>
+      </StyledLink>
       <FlexGridContainer>
         <Card>
           <CardItem>
